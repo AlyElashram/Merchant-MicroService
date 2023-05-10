@@ -10,4 +10,8 @@ public class MerchantService {
         return "This should be cached";
     }
 
+    // add listing --> add record
+    // sell listing --> status sold
+    // view all listingsolk, --> merchant id views all listings
+
 }
