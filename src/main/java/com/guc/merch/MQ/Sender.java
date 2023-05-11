@@ -15,4 +15,7 @@ public class Sender {
         rabbitTemplate.convertAndSend("Merchant_Queue", message);
     }
 
+    //TODO:Add All Queues to sending
+
+
 }
