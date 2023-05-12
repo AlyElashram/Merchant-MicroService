@@ -1,5 +1,8 @@
-package com.guc.merch.Listing;
+package com.guc.merch.services;
 
+import com.guc.merch.models.listing.Listing;
+import com.guc.merch.models.listing.ListingRepository;
+import com.guc.merch.controllers.ListingController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

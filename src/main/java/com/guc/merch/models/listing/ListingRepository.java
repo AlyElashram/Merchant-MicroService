@@ -1,4 +1,4 @@
-package com.guc.merch.Listing;
+package com.guc.merch.models.listing;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

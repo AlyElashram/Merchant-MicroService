@@ -1,7 +1,6 @@
 package com.guc.merch.MQ;
 
-import com.guc.merch.Listing.ListingController;
-import com.guc.merch.Listing.ListingService;
+import com.guc.merch.services.ListingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
