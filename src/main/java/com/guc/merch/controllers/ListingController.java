@@ -1,35 +1,42 @@
 package com.guc.merch.controllers;
 
 
-import java.util.List;
-
 import com.guc.merch.models.listing.Listing;
 import com.guc.merch.services.ListingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-    @RestController
-    public class ListingController {
-        private static final Logger LOGGER = LoggerFactory.getLogger(ListingController.class);
+import java.util.HashMap;
+import java.util.List;
 
-
-        @Autowired
-        ListingService service;
-
-        @PostMapping("/listing")
-        public Listing addListing(@RequestBody Listing listing) {
-            LOGGER.info("Calling Service from controller to add a listing");
-            return service.addListing(listing);
-        }
+@RestController
+public class ListingController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListingController.class);
 
 
-        @GetMapping("/listings")
-        public List<Listing> getAllListings(){
-           return service.getAllListings();
-        }
+    @Autowired
+    ListingService service;
+
+    @PostMapping("/listing")
+    public Listing addListing(@RequestBody Listing listing) {
+        LOGGER.info("Calling Service from controller to add a listing");
+        return service.addListing(listing);
     }
+
+    @PatchMapping("/listing/{id}")
+    public ResponseEntity<Listing> updateListing(@PathVariable String id, @RequestBody HashMap<String, Object> patch) {
+        Listing updatedListing = service.updateListing(id, patch);
+        if (updatedListing != null)
+            return ResponseEntity.ok().body(updatedListing);
+        return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/listings")
+    public List<Listing> getAllListings() {
+        return service.getAllListings();
+    }
+}
