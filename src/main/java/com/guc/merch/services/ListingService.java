@@ -1,13 +1,14 @@
 package com.guc.merch.services;
 
+import com.guc.merch.controllers.ListingController;
 import com.guc.merch.models.listing.Listing;
 import com.guc.merch.models.listing.ListingRepository;
-import com.guc.merch.controllers.ListingController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -16,14 +17,29 @@ public class ListingService {
     @Autowired
     private ListingRepository listingRepo;
 
-    public Listing addListing(Listing listing){
+    public Listing addListing(Listing listing) {
         LOGGER.info("Logging From my Service | Currently Adding a listing");
-        LOGGER.info("{}",listing);
+        LOGGER.info("{}", listing);
         return listingRepo.save(listing);
     }
-    public List<Listing> getAllListings(){
-        List<Listing> all = listingRepo.findAll();
-        LOGGER.info("Received message: {}", all);
-        return all;
+
+    public List<Listing> getAllListings() {
+        LOGGER.info("returning all listings");
+        return listingRepo.findAll();
+    }
+
+    public Listing updateListing(String id, HashMap<String, Object> patch) {
+        Listing listing = listingRepo.findById(id).orElse(null);
+        if (listing != null) {
+            LOGGER.info("updating listing : {}", id);
+            LOGGER.info("patch : {}", patch);
+            for(String field: patch.keySet()){
+                String methodName = "set"+ field.substring(0, 1).toUpperCase() + field.substring(1);
+                LOGGER.info("methodName: {}, value: {}", methodName, patch.get(field));
+                listing.setField(methodName, patch.get(field));
+            }
+            return listingRepo.save(listing);
+        }
+        return null;
     }
 }
