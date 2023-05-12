@@ -23,9 +23,9 @@ public class ListingService {
         return listingRepo.save(listing);
     }
 
-    public List<Listing> getAllListings() {
+    public List<Listing> getAllListings(String sellerUID) {
         LOGGER.info("returning all listings");
-        return listingRepo.findAll();
+        return listingRepo.findBySellerUID(sellerUID);
     }
 
     public Listing updateListing(String id, HashMap<String, Object> patch) {
