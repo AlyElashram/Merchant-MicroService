@@ -1,8 +1,5 @@
 package com.guc.merch.models.listing;
 
-import com.guc.merch.controllers.ListingController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -66,8 +63,8 @@ public class Listing {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(Object city) {
+        this.city = (String) city;
     }
 
     public ListingStatus getStatus() {
@@ -75,7 +72,12 @@ public class Listing {
     }
 
     public void setStatus(Object status) {
-        this.status = (ListingStatus) status;
+        try {
+            this.status = ListingStatus.valueOf((String) status);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid input for status: " + status);
+        }
+
     }
 
     public String getSellerUID() {
