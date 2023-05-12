@@ -36,7 +36,12 @@ public class ListingService {
             for(String field: patch.keySet()){
                 String methodName = "set"+ field.substring(0, 1).toUpperCase() + field.substring(1);
                 LOGGER.info("methodName: {}, value: {}", methodName, patch.get(field));
-                listing.setField(methodName, patch.get(field));
+                try {
+                    listing.setField(methodName, patch.get(field));
+                }
+                catch (Exception e){
+                    return null;
+                }
             }
             return listingRepo.save(listing);
         }
