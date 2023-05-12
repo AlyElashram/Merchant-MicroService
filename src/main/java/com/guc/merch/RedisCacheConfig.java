@@ -25,8 +25,10 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
-        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5));
-        return RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(cacheConfiguration).build();
+        RedisCacheConfiguration listingCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)).computePrefixWith(cacheName -> "listing:".concat(cacheName));
+        return RedisCacheManager.builder(redisConnectionFactory)
+                .withCacheConfiguration("listing", listingCacheConfiguration)
+                .build();
     }
 
     @Bean

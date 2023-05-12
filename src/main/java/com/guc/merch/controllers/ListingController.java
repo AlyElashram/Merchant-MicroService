@@ -38,6 +38,7 @@ public class ListingController {
     @GetMapping("/listings/{sellerUID}")
     public ResponseEntity<List<Listing>> getAllListings(@PathVariable String sellerUID) {
         List listings = service.getAllListings(sellerUID);
+        LOGGER.info("{}", listings);
         if (listings != null)
             return ResponseEntity.ok().body(listings);
         return ResponseEntity.notFound().build();
