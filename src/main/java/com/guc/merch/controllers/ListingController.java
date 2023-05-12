@@ -35,8 +35,11 @@ public class ListingController {
     }
 
 
-    @GetMapping("/listings")
-    public List<Listing> getAllListings() {
-        return service.getAllListings();
+    @GetMapping("/listings/{sellerUID}")
+    public ResponseEntity<List<Listing>> getAllListings(@PathVariable String sellerUID) {
+        List listings = service.getAllListings(sellerUID);
+        if (listings != null)
+            return ResponseEntity.ok().body(listings);
+        return ResponseEntity.notFound().build();
     }
 }
