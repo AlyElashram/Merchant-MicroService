@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration("AmazonConfig")
 public class AmazonConfig {
 
     @Value("${aws.access.key.id}")
@@ -22,7 +22,7 @@ public class AmazonConfig {
     @Value("${aws.s3.region}")
     private String region;
 
-    @Bean
+    @Bean("s3")
     public AmazonS3 s3() {
         AWSCredentials awsCredentials =
                 new BasicAWSCredentials(accessKey, secretKey);

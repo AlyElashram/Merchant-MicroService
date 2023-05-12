@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @Service
-@Slf4j
 public class FileServerService {
     @Autowired
     private AmazonS3 amazonS3;
@@ -33,8 +32,6 @@ public class FileServerService {
         String path = String.format("%s/%s", "scalable-team-bucket", UUID.randomUUID());
         String fileName = String.format("%s", file.getOriginalFilename());
 
-
-        log.debug("Path: " + path + ", FileName:" + fileName);
 
         PutObjectResult result = amazonS3.putObject(path, fileName, file.getInputStream(), objectMetadata);
         HashMap imageValues = new HashMap<String,Object>();
