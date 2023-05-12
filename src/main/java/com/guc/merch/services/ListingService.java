@@ -6,12 +6,15 @@ import com.guc.merch.models.listing.ListingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Service
+@CacheConfig(cacheNames = "listings")
 public class ListingService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ListingController.class);
     @Autowired
@@ -22,7 +25,7 @@ public class ListingService {
         LOGGER.info("{}", listing);
         return listingRepo.save(listing);
     }
-
+    @Cacheable(value = "listings", key = "#sellerUID")
     public List<Listing> getAllListings(String sellerUID) {
         LOGGER.info("returning all listings");
         return listingRepo.findBySellerUID(sellerUID);

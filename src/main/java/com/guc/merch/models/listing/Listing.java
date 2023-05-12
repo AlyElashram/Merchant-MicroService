@@ -3,12 +3,13 @@ package com.guc.merch.models.listing;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
 @Document(collection = "listings")
-public class Listing {
+public class Listing implements Serializable {
     @Id
     private String id;
     private double price;
