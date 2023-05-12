@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @CacheConfig(cacheNames = "listings")
@@ -37,6 +38,7 @@ public class ListingService {
         if (listing != null) {
             LOGGER.info("updating listing : {}", id);
             LOGGER.info("patch : {}", patch);
+
             for(String field: patch.keySet()){
                 String methodName = "set"+ field.substring(0, 1).toUpperCase() + field.substring(1);
                 LOGGER.info("methodName: {}, value: {}", methodName, patch.get(field));
@@ -51,9 +53,15 @@ public class ListingService {
         }
         return null;
     }
+
+    public Listing getListing(String id){
+       Optional<Listing> listing  = listingRepo.findById(id);
+       return listing.get();
+    }
     @CacheEvict(value = "listings", key = "#sellerUID")
     public void deleteListing(String id, String sellerUID) {
         listingRepo.deleteById(id);
     }
+
 
 }

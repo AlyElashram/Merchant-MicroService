@@ -20,6 +20,26 @@ public class Listing implements Serializable {
     private ListingStatus status;
     private String sellerUID;
 
+    private String imageName;
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    private String imagePath;
+
     public String getId() {
         return id;
     }
