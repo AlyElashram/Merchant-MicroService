@@ -50,4 +50,9 @@ public class ListingService {
         }
         return null;
     }
+
+    public void deleteListing(String id) {
+        listingRepo.deleteById(id);
+    }
+
 }

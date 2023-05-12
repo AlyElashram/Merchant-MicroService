@@ -6,6 +6,7 @@ import com.guc.merch.services.ListingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +43,12 @@ public class ListingController {
         if (listings != null)
             return ResponseEntity.ok().body(listings);
         return ResponseEntity.notFound().build();
+    }
+    
+    @CacheEvict(value = "listingsCache", key = "#listing.sellerUID")
+    @GetMapping("/listing/{id}")
+    public ResponseEntity<Listing> deleteListing(@PathVariable String id) {
+        service.deleteListing(id);
+        return ResponseEntity.ok().build();
     }
 }
