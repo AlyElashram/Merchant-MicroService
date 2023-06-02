@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration("AmazonConfig")
 public class AmazonConfig {
-
     @Value("${aws.access.key.id}")
     private String accessKey;
 
