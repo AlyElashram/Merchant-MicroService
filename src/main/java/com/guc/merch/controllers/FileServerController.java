@@ -13,18 +13,18 @@ public class FileServerController {
     @Autowired
     FileServerService fileServerService;
 
-    @PostMapping("/listing/image/{id}")
-    public ResponseEntity<Listing> uploadImage(@RequestParam("file") MultipartFile file, @RequestBody String id) {
-        try {
-            fileServerService.upload(id, file);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-    }
-    @GetMapping("/listing/image/{id}")
-    public ResponseEntity<S3Object> downloadImage(@RequestBody String id){
-        S3Object obj = fileServerService.download(id);
-        return obj == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().body(obj);
-    }
+//    @PostMapping("/listing/image/{id}")
+//    public ResponseEntity<Listing> uploadImage(@RequestParam("file") MultipartFile file, @RequestBody String id) {
+//        try {
+//            fileServerService.upload(id, file);
+//            return ResponseEntity.ok().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//    }
+//    @GetMapping("/listing/image/{id}")
+//    public ResponseEntity<S3Object> downloadImage(@RequestBody String id){
+//        S3Object obj = fileServerService.download(id);
+//        return obj == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().body(obj);
+//    }
 }
